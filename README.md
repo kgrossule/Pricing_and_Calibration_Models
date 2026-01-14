@@ -1,41 +1,40 @@
-# Quantitative Finance Models
+# Financial Volatility Simulations 📈
 
-This repository contains Python implementations designed to visualize and understand the dynamics of key stochastic models in finance. These scripts were developed as part of my academic preparation in Quantitative Finance.
+This repository contains Python experiments to explore how different volatility assumptions affect financial simulations. 
 
-## Model Comparison: Constant vs. Local Volatility
+The goal is to compare "textbook" models (constant volatility) with more realistic approaches (local volatility) and visualize the difference in risk distributions.
 
-This repository includes a specific comparison between two distinct approaches to volatility modeling, implemented in the following scripts:
+## 📂 Project Structure
 
-* `vasicek_simulation.py`
-* `local_volatility_simulation.py`
+### 1. Vasicek Model (Interest Rates)
+* **File:** `vasicek_simulation.py`
+* **Concept:** Mean Reversion.
+* **The Model:** Simulates interest rates that fluctuate but tend to return to a long-term target (Mean Reversion).
+* **Key Assumption:** Volatility is **constant**.
+* **Visual Output:**
+    * Paths show a "funnel" of uncertainty over time.
+    * The final distribution is a perfect **Normal (Gaussian) curve**.
+    * *Limitation observed:* The model allows rates to become negative and treats upside/downside risk symmetrically.
 
-**Goal of the analysis:**
-The primary purpose of these scripts is to demonstrate the structural limitations of **constant volatility models** (like the standard Vasicek framework) when compared to **non-constant volatility approaches** (Local Volatility).
+### 2. Local Volatility Model (Stock Prices)
+* **File:** `local_volatility_simulation.py`
+* **Concept:** Inverse Leverage Effect & Fat Tails.
+* **The Model:** Simulates stock prices using a geometric framework where volatility depends on the price level.
+* **Key Assumption:** Volatility is **dynamic**.
+    * Formula used: $\sigma(S) \propto 1/\sqrt{S}$
+    * *Logic:* When prices drop, volatility increases (panic). When prices rise, volatility decreases (calm).
+* **Visual Output:**
+    * Downside paths appear more "nervous" than upside paths.
+    * The final distribution is **Asymmetric (Skewed)** with a fatter left tail.
+    * *Reality check:* This better represents the "crash risk" seen in real equity markets compared to the Normal distribution.
 
-By simulating both dynamics, I aimed to visualize:
-1.  **Distributional Differences:** How the assumption of constant $\sigma$ fails to capture the heavy tails often observed in market data.
-2.  **Smile Replication:** Why a state-dependent volatility function $\sigma(S,t)$ is necessary to replicate the implied volatility smile, which constant parameter models cannot produce.
+## 🛠️ Requirements
 
-This comparison serves as a foundational step for my thesis work on extending Dupire's Local Volatility model to interest rates using Particle Methods.
-
-## Files Overview
-
-### 1. `local_volatility_simulation.py`
-**Local Volatility Model (Simulation)**
-* **Objective:** Demonstrates the "Inverse Leverage Effect" where volatility increases as asset prices drop.
-* **Mechanism:** Uses a state-dependent volatility function $\sigma(S) = 0.2 \cdot \sqrt{100/S}$ within a Monte Carlo simulation.
-* **Outcome:** Visualizes how local volatility generates an asymmetric final distribution (Skew), departing from the standard Black-Scholes log-normality.
-
-### 2. `vasicek_simulation.py`
-**Vasicek Interest Rate Model**
-* **Objective:** Simulates interest rate paths to analyze the Mean Reversion property.
-* **Mechanism:** Discretizes the Ornstein-Uhlenbeck SDE using an Euler-Maruyama scheme.
-* **Outcome:** Shows how rates fluctuate around the long-term target ($\theta$) over time, highlighting the theoretical behavior of the model.
-
-## Dependencies
 * Python 3.x
-* NumPy, Matplotlib
+* NumPy
+* Matplotlib
 
-## Author
-**Katia Grossule**
-Quantitative Finance Master's Candidate
+To run the simulations:
+```bash
+python vasicek_simulation.py
+python local_volatility_simulation.py
