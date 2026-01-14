@@ -21,8 +21,9 @@ The goal is to compare "textbook" models (constant volatility) with more realist
 * **Concept:** Inverse Leverage Effect & Fat Tails.
 * **The Model:** Simulates stock prices using a geometric framework where volatility depends on the price level.
 * **Key Assumption:** Volatility is **dynamic**.
-    * Formula used: $\sigma(S) \propto 1/\sqrt{S}$
-    * *Logic:* When prices drop, volatility increases (panic). When prices rise, volatility decreases (calm).
+    * **Formula used:**
+      $$\sigma(S_t) = 0.20 \times \sqrt{\frac{100}{S_t}}$$
+    * *Logic:* When prices drop ($S < 100$), the term under the square root becomes $>1$, increasing volatility (panic). When prices rise, volatility decreases (calm).
 * **Visual Output:**
     * Downside paths appear more "nervous" than upside paths.
     * The final distribution is **Asymmetric (Skewed)** with a fatter left tail.
